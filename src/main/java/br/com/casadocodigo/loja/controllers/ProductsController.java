@@ -69,7 +69,7 @@ public class ProductsController {
 	@RequestMapping(method=RequestMethod.GET)
 	@Cacheable(value="lastProducts")
 	public ModelAndView list() throws ServletException, IOException{
-		System.out.println(ctx.getRealPath(""));
+		System.out.println("ola");
 		ModelAndView modelAndView = new ModelAndView("products/list");
 		modelAndView.addObject("products", products.findAll());
 		return modelAndView;
