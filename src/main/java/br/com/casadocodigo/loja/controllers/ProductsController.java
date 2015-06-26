@@ -2,6 +2,10 @@ package br.com.casadocodigo.loja.controllers;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import br.com.casadocodigo.loja.daos.ProductDAO;
 import br.com.casadocodigo.loja.infra.FileSaver;
@@ -32,6 +37,10 @@ public class ProductsController {
 	private ProductDAO products;
 	@Autowired
 	private FileSaver fileSaver;
+	@Autowired
+	private ServletContext ctx;
+	@Autowired
+	private InternalResourceViewResolver resolver;
 	
 
 	@RequestMapping(method=RequestMethod.POST)
@@ -59,7 +68,8 @@ public class ProductsController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	@Cacheable(value="lastProducts")
-	public ModelAndView list(){		
+	public ModelAndView list() throws ServletException, IOException{
+		System.out.println(ctx.getRealPath(""));
 		ModelAndView modelAndView = new ModelAndView("products/list");
 		modelAndView.addObject("products", products.findAll());
 		return modelAndView;

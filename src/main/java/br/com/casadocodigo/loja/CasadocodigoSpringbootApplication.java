@@ -8,12 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @SpringBootApplication
 @EnableAutoConfiguration
 public class CasadocodigoSpringbootApplication {
-
 	@Bean
 	public DataSource dataSource(Environment environment) {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -24,15 +22,6 @@ public class CasadocodigoSpringbootApplication {
 		return dataSource;
 	}
 	
-	@Bean
-	public InternalResourceViewResolver internalResourceViewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/views/");
-		resolver.setSuffix(".jsp");
-		resolver.setExposedContextBeanNames("shoppingCart");
-		return resolver;
-	}	
-
 	public static void main(String[] args) {
 		SpringApplication.run(CasadocodigoSpringbootApplication.class, args);
 	}
